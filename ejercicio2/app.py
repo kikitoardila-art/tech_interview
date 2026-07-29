@@ -36,14 +36,14 @@ estado_filtro = st.sidebar.multiselect(
 
 tipologia_filtro = st.sidebar.multiselect(
     "Tipología",
-    options=df['tipologia'].unique(),
-    default=df['tipologia'].unique()
+    options=df['tipo_apartamento'].unique(),
+    default=df['tipo_apartamento'].unique()
 )
 
 # Filtrar DataFrame
 df_filtrado = df[
     (df['estado'].isin(estado_filtro)) & 
-    (df['tipologia'].isin(tipologia_filtro))
+    (df['tipo_apartamento'].isin(tipologia_filtro))
 ]
 
 # Métricas Principales (KPIs)
@@ -73,7 +73,7 @@ with c2:
     st.subheader("Inventario por Tipología")
     fig_bar = px.histogram(
         df_filtrado, 
-        x='tipologia', 
+        x='tipo_apartamento', 
         color='estado', 
         barmode='group',
         title='Unidades por Tipología y Estado',

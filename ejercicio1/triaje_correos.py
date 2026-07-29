@@ -45,7 +45,9 @@ def procesar_triaje():
     df = pd.read_csv(ruta_csv)
     
     # Deduplicación básica por cliente y asunto
-    df = df.drop_duplicates(subset=['cliente', 'asunto'], keep='first')
+    col_cliente = 'cliente' if 'cliente' in df.columns else ('remitente' if 'remitente' in df.columns else df.columns[0])
+    col_asunto = 'asunto' if 'asunto' in df.columns else df.columns[1]
+    df = df.drop_duplicates(subset=[col_cliente, col_asunto], keep='first')
     
     # Aplicar clasificación
     df[['Tipo_Peticion', 'Urgencia', 'Responsable', 'Accion_Sugerida']] = df.apply(clasificar_correo, axis=1)
